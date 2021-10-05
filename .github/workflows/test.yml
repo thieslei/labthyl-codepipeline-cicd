@@ -1,0 +1,15 @@
+name: teste
+
+on:
+  push:
+    branches:
+      - '**'    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Branch
+      run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+    - name: Echo Branch Name
+      run: echo "${{ env.current_branch }}"
