@@ -12,8 +12,8 @@ env:
   ENV: PRD
 
 jobs:
-  setup:
-    name: setup ${{ env.ENV }}
+  deploy:
+    name: Terraform Deploy PRD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
