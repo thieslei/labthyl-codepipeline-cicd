@@ -42,23 +42,17 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         env:
           TF_IN_AUTOMATION: true
-          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
 
       - name: Terraform Validate
         id: terraform-validate
         run: terraform validate -no-color
         working-directory: ${{ env.TF_WORKING_DIR }}
-        env:
-          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
-
-
+        
       - name: Terraform Plan
         id: terraform-plan
         run: terraform plan -no-color
         working-directory: ${{ env.TF_WORKING_DIR }}
-        continue-on-error: true
-        env:
-          TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
+        continue-on-error: false
 
 #      - name: Terraform Apply
 #        if: ${{ github.event_name == 'pull_request' }}
