@@ -25,7 +25,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
       configuration = {
         FullRepositoryId     = "thieslei/labthyl_networkbase_code"
         BranchName           = "main"
-        ConnectionArn        = var.codestar_connector_credentials
+        ConnectionArn        = var.connector_credentials
         OutputArtifactFormat = "CODE_ZIP"
       }
     }
