@@ -51,7 +51,7 @@ jobs:
         id: terraform-plan
         run: terraform plan -no-color
         working-directory: ${{ env.TF_WORKING_DIR }}
-        continue-on-error: false
+        continue-on-error: true
 
 #      - name: Terraform Apply
 #        if: ${{ github.event_name == 'pull_request' }}
