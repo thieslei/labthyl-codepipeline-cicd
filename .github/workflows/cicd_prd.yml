@@ -1,8 +1,12 @@
-name: "Terraform"
+name: "Terraform Deployment PRD"
 
 on:
-  #push: { branches: [main] }
-  pull_request: { branches: [main] }
+  #push:
+  #  branches: [main] 
+    
+  pull_request: 
+    types: [closed]
+    branches: [main]
 
 env:
   TF_WORKING_DIR: ./infradeployment
@@ -11,7 +15,7 @@ env:
   
 jobs:
   terraform:
-    name: "Terraform Deployment"
+    name: "Terraform Deployment PRD"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,7 +54,7 @@ jobs:
       
       - name: Terraform Apply
         id: tf_apply
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         run: terraform apply -no-color -auto-approve tfplan-$(echo ${GITHUB_SHA} | cut -c1-8)
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: false
