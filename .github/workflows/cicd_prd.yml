@@ -8,7 +8,6 @@ env:
   TF_WORKING_DIR: ./infradeployment
   TF_ENVIRONMENTS_TFVARS_PATH: ./env/
   TF_WORKSPACE: PRD
-  GH_COMMITHASH: ${GITHUB_SHA::8}
   
 jobs:
   terraform:
@@ -27,9 +26,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
-      - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
       - name: Terraform Format
         id: fmt
@@ -49,7 +45,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         #if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -out=tfplan-${{ env.GH_COMMITHASH }} -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
+        run: terraform plan -no-color -out=tfplan-$(echo ${GITHUB_SHA} | cut -c1-8) -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: false
 
