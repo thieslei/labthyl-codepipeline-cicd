@@ -52,7 +52,7 @@ jobs:
       - name: Terraform Apply
         id: tf_apply
         #if: github.event_name == 'pull_request'
-        run: terraform apply -no-color "tfplan-$(echo ${GITHUB_SHA} | cut -c1-8)" -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
+        run: terraform apply -no-color tfplan-$(echo ${GITHUB_SHA} | cut -c1-8) -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: false
 
