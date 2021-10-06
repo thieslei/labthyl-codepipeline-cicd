@@ -3,9 +3,11 @@
 ############## labthyl_networkbase_code ##############
 ######################################################
 
-resource "aws_codepipeline" "cicd_pipeline" {
 
-  name     = "labthyl_networkbase_code"
+############## DEV ##############
+resource "aws_codepipeline" "cicd_pipeline_dev" {
+
+  name     = "labthyl_networkbase_code_DEV"
   role_arn = aws_iam_role.tf-codepipeline-role.arn
 
   artifact_store {
@@ -24,7 +26,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
       output_artifacts = ["tf-code"]
       configuration = {
         FullRepositoryId     = "thieslei/labthyl_networkbase_code"
-        BranchName           = "main"
+        BranchName           = "develop"
         ConnectionArn        = var.connector_credentials
         OutputArtifactFormat = "CODE_ZIP"
       }
