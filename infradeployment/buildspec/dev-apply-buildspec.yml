@@ -10,4 +10,4 @@ phases:
   
   build:
     commands:
-      - terraform apply -no-color tfplan
+      - terraform apply -no-color -var-file=./env/DEV.tfvars
