@@ -50,7 +50,7 @@ jobs:
       
       - name: Terraform Apply
         id: tf_apply
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event_name == 'pull_request'
         run: terraform apply -no-color -auto-approve tfplan-$(echo ${GITHUB_SHA} | cut -c1-8)
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: false
