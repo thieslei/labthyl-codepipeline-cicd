@@ -45,7 +45,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         #if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
+        run: terraform plan -no-color -out=tfplan-${{ github.sha }} -var-file=${{ env.TF_ENVIRONMENTS_TFVARS_PATH }}${{ env.TF_WORKSPACE }}.tfvars
         working-directory: ${{ env.TF_WORKING_DIR }}
         continue-on-error: false
 
