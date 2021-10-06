@@ -34,7 +34,7 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
   }
 
   stage {
-    name = "Plan"
+    name = "Plan DEV"
     action {
       name            = "Build"
       category        = "Build"
@@ -49,7 +49,7 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
   }
 
   stage {
-    name = "Deploy"
+    name = "Apply DEV"
     action {
       name            = "Deploy"
       category        = "Build"
