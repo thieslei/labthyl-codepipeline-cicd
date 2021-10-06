@@ -21,7 +21,7 @@ This project controls all my pipelines running on AWS CodePipeline, using GitHub
 <BR>
 
 ## 🛠️ How does it works?? <a name = "Howdoesitworks"></a>
-It's a project that orchestrated by GitHubActions that creates new pipelines on AWS CodePipeline to run my terraform codes on AWS.
+It's a project that orchestrated by GitHubActions that creates my pipelines on AWS CodePipeline to run my terraform codes on AWS.
 
 You will need:
 * AWS Account
