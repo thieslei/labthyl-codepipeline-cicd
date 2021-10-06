@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - cd infradeployment
+      - terraform fmt
+      - terraform init
+      - terraform validate
+      - terraform workspace select DEV
+  
+  build:
+    commands:
+      - terraform plan -no-color -out=tfplan -var-file=./env/DEV.tfvars
