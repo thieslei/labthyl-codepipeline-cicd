@@ -12,7 +12,7 @@ env:
   
 jobs:
   terraform:
-    name: "Terraform Deployment ${{ env.TF_WORKSPACE }}"
+    name: "Terraform Deployment"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
