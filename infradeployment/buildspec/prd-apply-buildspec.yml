@@ -6,8 +6,8 @@ phases:
       - terraform fmt
       - terraform init
       - terraform validate
-      - terraform workspace select DEV
+      - terraform workspace select PRD
   
   build:
     commands:
-      - terraform plan -no-color -var-file=./env/DEV.tfvars
+      - terraform apply -no-color -auto-approve -var-file=./env/PRD.tfvars
