@@ -7,7 +7,7 @@
 ############## DEV ##############
 resource "aws_codepipeline" "cicd_pipeline_dev" {
 
-  name     = "labthyl_networkbase_code_DEV"
+  name     = "labthyl_networkbase_code_dev"
   role_arn = aws_iam_role.tf-codepipeline-role.arn
 
   artifact_store {
@@ -34,7 +34,7 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
   }
 
   stage {
-    name = "Plan DEV"
+    name = "Plan_dev"
     action {
       name            = "Build"
       category        = "Build"
@@ -49,7 +49,7 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
   }
 
   stage {
-    name = "Apply DEV"
+    name = "Apply_dev"
     action {
       name            = "Deploy"
       category        = "Build"
@@ -64,10 +64,11 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
   }
 }
 
-############## STG ##############
-resource "aws_codepipeline" "cicd_pipeline_STG" {
 
-  name     = "labthyl_networkbase_code_STG"
+############## STG ##############
+resource "aws_codepipeline" "cicd_pipeline_stg" {
+
+  name     = "labthyl_networkbase_code_stg"
   role_arn = aws_iam_role.tf-codepipeline-role.arn
 
   artifact_store {
@@ -92,8 +93,18 @@ resource "aws_codepipeline" "cicd_pipeline_STG" {
       }
     }
   }
-    stage {
-    name = "Plan STG"
+  stage {
+    name = "Approval"
+    action {
+      name     = "Approval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
+    }
+  }
+  stage {
+    name = "Plan_stg"
     action {
       name            = "Build"
       category        = "Build"
@@ -102,13 +113,13 @@ resource "aws_codepipeline" "cicd_pipeline_STG" {
       owner           = "AWS"
       input_artifacts = ["tf-code"]
       configuration = {
-        ProjectName = "tf-cicd-plan-STG"
+        ProjectName = "tf-cicd-plan-stg"
       }
     }
   }
 
   stage {
-    name = "Apply STG"
+    name = "Apply_stg"
     action {
       name            = "Deploy"
       category        = "Build"
@@ -117,16 +128,16 @@ resource "aws_codepipeline" "cicd_pipeline_STG" {
       owner           = "AWS"
       input_artifacts = ["tf-code"]
       configuration = {
-        ProjectName = "tf-cicd-apply-STG"
+        ProjectName = "tf-cicd-apply-stg"
       }
     }
   }
 }
 
 ############## PRD ##############
-resource "aws_codepipeline" "cicd_pipeline_PRD" {
+resource "aws_codepipeline" "cicd_pipeline_prd" {
 
-  name     = "labthyl_networkbase_code_PRD"
+  name     = "labthyl_networkbase_code_prd"
   role_arn = aws_iam_role.tf-codepipeline-role.arn
 
   artifact_store {
@@ -151,8 +162,18 @@ resource "aws_codepipeline" "cicd_pipeline_PRD" {
       }
     }
   }
-    stage {
-    name = "Plan PRD"
+  stage {
+    name = "Approval"
+    action {
+      name     = "Approval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
+    }
+  }
+  stage {
+    name = "Plan_prd"
     action {
       name            = "Build"
       category        = "Build"
@@ -161,13 +182,13 @@ resource "aws_codepipeline" "cicd_pipeline_PRD" {
       owner           = "AWS"
       input_artifacts = ["tf-code"]
       configuration = {
-        ProjectName = "tf-cicd-plan-PRD"
+        ProjectName = "tf-cicd-plan-prd"
       }
     }
   }
 
   stage {
-    name = "Apply PRD"
+    name = "Apply_prd"
     action {
       name            = "Deploy"
       category        = "Build"
@@ -176,8 +197,42 @@ resource "aws_codepipeline" "cicd_pipeline_PRD" {
       owner           = "AWS"
       input_artifacts = ["tf-code"]
       configuration = {
-        ProjectName = "tf-cicd-apply-PRD"
+        ProjectName = "tf-cicd-apply-prd"
       }
     }
   }
 }
+
+#    stage {
+#    name = "Approve"
+#
+#   action {
+#       name     = "Approval"
+#       category = "Approval"
+#       owner    = "AWS"
+#       provider = "Manual"
+#       version  = "1"
+#
+#      # configuration {
+#      # NotificationArn = "${var.approve_sns_arn}"
+#      # CustomData = "${var.approve_comment}"
+#      # ExternalEntityLink = "${var.approve_url}"
+#       #}
+#   }
+#   }
+#   
+#   stage {
+#       name ="Destroy"
+#       action{
+#           name = "Destroy"
+#           category = "Build"
+#           provider = "CodeBuild"
+#           version = "1"
+#           owner = "AWS"
+#           
+#           input_artifacts = ["tf-code"]
+#           configuration = {
+#               ProjectName = "tf-cicd-destroy"
+#           }
+#       }
+#   }
