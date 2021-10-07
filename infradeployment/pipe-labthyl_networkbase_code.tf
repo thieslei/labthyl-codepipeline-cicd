@@ -62,6 +62,7 @@ resource "aws_codepipeline" "cicd_pipeline_dev" {
       }
     }
   }
+}
 
 ############## STG ##############
 resource "aws_codepipeline" "cicd_pipeline_STG" {
@@ -120,6 +121,7 @@ resource "aws_codepipeline" "cicd_pipeline_STG" {
       }
     }
   }
+}
 
 ############## PRD ##############
 resource "aws_codepipeline" "cicd_pipeline_PRD" {
@@ -178,39 +180,4 @@ resource "aws_codepipeline" "cicd_pipeline_PRD" {
       }
     }
   }
-
-  #    stage {
-  #    name = "Approve"
-  #
-  #   action {
-  #       name     = "Approval"
-  #       category = "Approval"
-  #       owner    = "AWS"
-  #       provider = "Manual"
-  #       version  = "1"
-  #
-  #      # configuration {
-  #      # NotificationArn = "${var.approve_sns_arn}"
-  #      # CustomData = "${var.approve_comment}"
-  #      # ExternalEntityLink = "${var.approve_url}"
-  #       #}
-  #   }
-  #   }
-  #   
-  #   stage {
-  #       name ="Destroy"
-  #       action{
-  #           name = "Destroy"
-  #           category = "Build"
-  #           provider = "CodeBuild"
-  #           version = "1"
-  #           owner = "AWS"
-  #           
-  #           input_artifacts = ["tf-code"]
-  #           configuration = {
-  #               ProjectName = "tf-cicd-destroy"
-  #           }
-  #       }
-  #   }
-
 }
